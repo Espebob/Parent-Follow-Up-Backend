@@ -17,7 +17,7 @@
                 "summary": "Create account ",
                 "description": "Create a new account on parent_followup ",
                 "tags": [
-                    "User"
+                    "SignUp"
                 ],
                 "parameters": [
                     {
@@ -42,7 +42,7 @@
                 "summary": "verify account ",
                 "description": "verify your  account on parent_followup ",
                 "tags": [
-                    "User"
+                    "OTP Verification"
                 ],
                 "parameters": [
                     {
@@ -55,6 +55,14 @@
                         "description": "User object"
                     }
                 ],
+                "requestBody":{
+                  "content":{
+                    "application/json":{
+                      "schema":{
+                        "$ref":"#/definitions/User"                      }
+                    }
+                  }
+                },
                 "responses": {
                     "201": {
                         "description": "Account verified successfully"
@@ -64,9 +72,9 @@
         },
         "/login": {
       "post": {
-        "summary": "Login user",
+        "summary": "Login",
         "description": "Authenticate and login user",
-        "tags": ["User"],
+        "tags": ["LogIn"],
         "parameters": [
           {
             "in": "body",
@@ -107,17 +115,8 @@
           },
           "ConfirmPassword": {
             "type": "string"
-          },
-          "otp": {
-            "type": "number"
-          },
-          "otpExpiration": {
-            "type": "string"
-          },
-          "otpVerified": {
-            "type": "boolean",
-            "default": false
           }
+         
         },
         "required": [
           "FirstName",
@@ -127,15 +126,16 @@
           "ConfirmPassword"
         ]
       },
-      "Otp": {
-        "type": "object",
+      "otp":{
+        "type":"object",
         "properties": {
-          "otp": {
-            "type": "number"
+          "otp":{
+            "type":"number"
           }
         },
-        "required": ["otp"]
+        "required":["otp"]
       },
+    
       "Login": {
         "type": "object",
         "properties": {
