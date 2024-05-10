@@ -1,0 +1,152 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "parent_followup API",
+        "description": "API documentation for parent_followup with all  CRUD operations",
+        "version": "1.0.0"
+    },
+    "host": "localhost:3500",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/signUp": {
+            "post": {
+                "summary": "Create account ",
+                "description": "Create a new account on parent_followup ",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        },
+                        "required": true,
+                        "description": "User object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account created successfully"
+                    }
+                }
+            }
+        },
+        "/otp-verify": {
+            "post": {
+                "summary": "verify account ",
+                "description": "verify your  account on parent_followup ",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Otp"
+                        },
+                        "required": true,
+                        "description": "User object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account verified successfully"
+                    }
+                }
+            }
+        },
+        "/login": {
+      "post": {
+        "summary": "Login user",
+        "description": "Authenticate and login user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "Password": {
+            "type": "string"
+          },
+          "ConfirmPassword": {
+            "type": "string"
+          },
+          "otp": {
+            "type": "number"
+          },
+          "otpExpiration": {
+            "type": "string"
+          },
+          "otpVerified": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "FirstName",
+          "LastName",
+          "Email",
+          "Password",
+          "ConfirmPassword"
+        ]
+      },
+      "Otp": {
+        "type": "object",
+        "properties": {
+          "otp": {
+            "type": "number"
+          }
+        },
+        "required": ["otp"]
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"]
+      }
+    }
+}
