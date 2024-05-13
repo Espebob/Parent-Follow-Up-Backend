@@ -42,7 +42,7 @@
                 "summary": "verify account ",
                 "description": "verify your  account on parent_followup ",
                 "tags": [
-                    "User"
+                    "OTP USER VERFICATION"
                 ],
                 "parameters": [
                     {
@@ -107,16 +107,6 @@
           },
           "ConfirmPassword": {
             "type": "string"
-          },
-          "otp": {
-            "type": "number"
-          },
-          "otpExpiration": {
-            "type": "string"
-          },
-          "otpVerified": {
-            "type": "boolean",
-            "default": false
           }
         },
         "required": [
@@ -125,6 +115,7 @@
           "Email",
           "Password",
           "ConfirmPassword"
+          
         ]
       },
       "Otp": {

@@ -15,6 +15,15 @@ const userSchema = new mongoose.Schema({
    ConfirmPassword:{
 type:String
    },
+   role:{
+    type:String,
+    required:true,
+    enum:{
+        values:['admin', 'user','teacher', 'parent'],
+        message:'Role must be admin or user.'
+    },
+    default:'user'
+},
    otp:{
       type:Number,
       required:true
