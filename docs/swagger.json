@@ -1,68 +1,64 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "parent_followup API",
-        "description": "API documentation for parent_followup with all  CRUD operations",
-        "version": "1.0.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "parent_followup API",
+    "description": "API documentation for parent_followup with all CRUD operations",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3500",
+  "basePath": "",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/signUp": {
+      "post": {
+        "summary": "Create account",
+        "description": "Create a new account on parent_followup",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created successfully"
+          }
+        }
+      }
     },
-    "host": "localhost:3500",
-    "basePath": "",
-    "schemes": [
-        "http",
-        "https"
-    ],
-    "paths": {
-        "/signUp": {
-            "post": {
-                "summary": "Create account ",
-                "description": "Create a new account on parent_followup ",
-                "tags": [
-                    "User"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        },
-                        "required": true,
-                        "description": "User object"
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Account created successfully"
-                    }
-                }
-            }
-        },
-        "/otp-verify": {
-            "post": {
-                "summary": "verify account ",
-                "description": "verify your  account on parent_followup ",
-                "tags": [
-                    "OTP USER VERFICATION"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "schema": {
-                            "$ref": "#/definitions/Otp"
-                        },
-                        "required": true,
-                        "description": "User object"
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Account verified successfully"
-                    }
-                }
-            }
-        },
-        "/login": {
+    "/otp-verify": {
+      "post": {
+        "summary": "Verify account",
+        "description": "Verify your account on parent_followup",
+        "tags": ["OTP USER VERIFICATION"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Otp"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account verified successfully"
+          }
+        }
+      }
+    },
+    "/login": {
       "post": {
         "summary": "Login user",
         "description": "Authenticate and login user",
@@ -87,57 +83,154 @@
           }
         }
       }
-    }
     },
-    "definitions": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "FirstName": {
-            "type": "string"
-          },
-          "LastName": {
-            "type": "string"
-          },
-          "Email": {
-            "type": "string"
-          },
-          "Password": {
-            "type": "string"
-          },
-          "ConfirmPassword": {
-            "type": "string"
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Retrieve a list of all users",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
           }
-        },
-        "required": [
-          "FirstName",
-          "LastName",
-          "Email",
-          "Password",
-          "ConfirmPassword"
-          
-        ]
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "summary": "Get user by ID",
+        "description": "Retrieve a user by their ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
       },
-      "Otp": {
-        "type": "object",
-        "properties": {
-          "otp": {
-            "type": "number"
-          }
-        },
-        "required": ["otp"]
-      },
-      "Login": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
+      "put": {
+        "summary": "Update user",
+        "description": "Update user information",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to update"
           },
-          "password": {
-            "type": "string"
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "Updated user object"
           }
-        },
-        "required": ["email", "password"]
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "description": "Delete a user by their ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
       }
     }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "ConfirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "FirstName",
+        "LastName",
+        "Email",
+        "Password",
+        "ConfirmPassword"
+      ]
+    },
+    "Otp": {
+      "type": "object",
+      "properties": {
+        "otp": {
+          "type": "number"
+        }
+      },
+      "required": ["otp"]
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "password"]
+    }
+  }
 }
