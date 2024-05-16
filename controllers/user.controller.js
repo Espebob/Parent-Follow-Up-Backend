@@ -110,3 +110,67 @@ export const login = asyncWrapper(async (req, res, next) => {
 
   res.status(200).json({ token });
 });
+
+
+
+
+
+
+
+// Update user
+export const updateUser = asyncWrapper(async (req, res, next) => {
+    const { userId } = req.params;
+    const updatedUserData = req.body; // Data to update
+
+    // Find the user by ID and update
+    const updatedUser = await userModel.findByIdAndUpdate(
+        userId,
+        updatedUserData,
+        { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+        return next(new customError("User not found", 404));
+    }
+
+    res.status(200).json({ user: updatedUser });
+});
+
+
+
+
+
+// Get all users
+export const getAllUsers = asyncWrapper(async (req, res, next) => {
+    const users = await userModel.find();
+    res.status(200).json({ users });
+});
+
+
+
+
+// Get user by ID
+export const getUserById = asyncWrapper(async (req, res, next) => {
+    const { userId } = req.params;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+        return next(new customError("User not found", 404));
+    }
+
+    res.status(200).json({ user });
+});
+
+
+// Delete user
+export const deleteUser = asyncWrapper(async (req, res, next) => {
+    const { userId } = req.params;
+
+    const deletedUser = await userModel.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+        return next(new customError("User not found", 404));
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+});
