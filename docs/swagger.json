@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "parent_followup API",
+    "title": "Parent_followup API",
     "description": "API documentation for parent_followup with all CRUD operations",
     "version": "1.0.0"
   },
@@ -16,7 +16,7 @@
       "post": {
         "summary": "Create account",
         "description": "Create a new account on parent_followup",
-        "tags": ["User"],
+        "tags": ["Signup"],
         "parameters": [
           {
             "in": "body",
@@ -31,6 +31,33 @@
         "responses": {
           "201": {
             "description": "Account created successfully"
+          }
+        }
+      }
+    },
+   
+    "/login": {
+      "post": {
+        "summary": "Login user",
+        "description": "Authenticate and login user",
+        "tags": ["User Signin"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login"
+          },
+          "401": {
+            "description": "Invalid credentials"
           }
         }
       }
@@ -58,37 +85,11 @@
         }
       }
     },
-    "/login": {
-      "post": {
-        "summary": "Login user",
-        "description": "Authenticate and login user",
-        "tags": ["User"],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/Login"
-            },
-            "required": true,
-            "description": "User credentials"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful login"
-          },
-          "401": {
-            "description": "Invalid credentials"
-          }
-        }
-      }
-    },
     "/users": {
       "get": {
         "summary": "Get all users",
         "description": "Retrieve a list of all users",
-        "tags": ["User"],
+        "tags": ["All Users Registered"],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -106,7 +107,7 @@
       "get": {
         "summary": "Get user by ID",
         "description": "Retrieve a user by their ID",
-        "tags": ["User"],
+        "tags": ["Get user by Id"],
         "parameters": [
           {
             "in": "path",
@@ -131,7 +132,7 @@
       "put": {
         "summary": "Update user",
         "description": "Update user information",
-        "tags": ["User"],
+        "tags": ["Update User"],
         "parameters": [
           {
             "in": "path",
@@ -162,7 +163,7 @@
       "delete": {
         "summary": "Delete user",
         "description": "Delete a user by their ID",
-        "tags": ["User"],
+        "tags": ["Delete User"],
         "parameters": [
           {
             "in": "path",
@@ -201,6 +202,11 @@
         },
         "ConfirmPassword": {
           "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "description":"role of the user",
+          "default":"user"
         }
       },
       "required": [
@@ -208,7 +214,8 @@
         "LastName",
         "Email",
         "Password",
-        "ConfirmPassword"
+        "ConfirmPassword",
+        "role"
       ]
     },
     "Otp": {
@@ -228,9 +235,17 @@
         },
         "password": {
           "type": "string"
+        },
+
+        "role":
+        {
+            "type":"string",
+            "description":"role of the User",
+            "default":"user"
+
         }
       },
-      "required": ["email", "password"]
+      "required": ["email", "password","role"]
     }
   }
 }
